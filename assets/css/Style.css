@@ -1,0 +1,49 @@
+/*General Structure of the Page-----------------------------------------------------------------*/
+/*this allows for the sticky footer, using flex*/
+html, body {
+    height: 100%;
+    margin:0px; 
+    padding:0px;
+    background-color:#37373b;
+    color: white;
+}
+  
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    width: 100%;
+    background-color:#1f1f24;
+    Padding: 35px;
+    font-size: 35px;
+    text-align: center;
+}
+
+/*styling for the image*/
+img {
+    float:center;
+    padding : 15px;
+    height: 200px;
+    width: 200px;
+    border: 3px;
+}
+
+.img-thumbnail {
+    border-color: greenyellow;
+    border-width: 3px;
+}
+
+.text {
+    color:black;
+    text-align: center;
+    vertical-align: bottom;
+    font-size: 20px;
+}
+
+.text2 {
+    color:white;
+    text-align: center;
+    font-size: 35px;
+}
