@@ -18,6 +18,7 @@ $(document).ready(function () {
             name: "Maul",
             Power: 120,
             attackPower: 10,
+            basePower:10,
             counterAttackPower: 8
         }
 
@@ -26,6 +27,7 @@ $(document).ready(function () {
             name: "Luke",
             Power: 100,
             attackPower: 8,
+            basePower:8,
             counterAttackPower: 5
         }
 
@@ -34,6 +36,7 @@ $(document).ready(function () {
             name: "Sidius",
             Power: 150,
             attackPower: 9,
+            basePower:9,
             counterAttackPower: 10
         }
 
@@ -42,6 +45,7 @@ $(document).ready(function () {
             name: "Kanobi",
             Power: 100,
             attackPower: 12,
+            basePower:12,
             counterAttackPower: 12
         }
 
@@ -107,6 +111,7 @@ begin();
     $(".attack").on("click", function() {
         if(myCharacter !== null && myCharacter.Power > 0 && attackers.length > 0) {
             console.log("Attack button works");
+            console.log(attackers.length);
             // created variable to store game status messages
             var message = "";
 
@@ -115,8 +120,9 @@ begin();
 
                 // reduce the attackers power by the attackpower of the your character
                 Foe.Power -= myCharacter.attackPower;
+                myCharacter.attackPower += myCharacter.basePower;
                 message += myCharacter.name + " attacked " + Foe.name + " and caused a " + myCharacter.attackPower + " point damage.<br>";
-
+                
                 console.log(message);
                 // update the attackers power in the image caption.
                 $("."+Foe.id + "Power").html(Foe.Power);
@@ -130,13 +136,40 @@ begin();
 				$("."+myCharacter.id + "Power").html(myCharacter.Power);
 
                 // create something here with if statements depending on the first person to run out of points
+                if(myCharacter.Power <= 0) {
+					message = "You lost... GAME OVER!!!!";
+					$(".reset").show();
+				} else if(Foe.Power <= 0) {	// when defender is defeated
+					message = "You beat " + Foe.name + ". Choose someone else to fight.";
 
+					// clear defender selection
+                    $(".currentAttackSpace").empty();
+                    // remove defeated defender from defender array
+                    attackers.splice(Foe.id,1);
+                    
+					Foe = null;
+					
+				}
                 // you only win if there are no attackers left in the array
+                // when no defenders left
+				if(attackers.length == 0) {
+					message = "You Won!";
+                    $(".reset").show();
+                    
+				}
+
+			    $(".message").html(message);
 
             };
-            $(".message").html(message);
+
+          $(".message").html(message);
+
         }
+
+        $(".reset").on("click", function() { begin() });
+
     });//end attack on.click
+
 
 
 })//document ready//
